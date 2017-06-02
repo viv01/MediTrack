@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MediTrack</string>
+
+    <!-- Strings related to login -->
+    <string name="user_name">Enter your name</string>
+    <string name="user_age">Enter your age</string>
+    <string name="action_sign_in">Sign in</string>
+</resources>
