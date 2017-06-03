@@ -1,56 +1,69 @@
 package co.digidec.vivekydv.meditrack;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     // UI references.
-    private EditText user_name;
-    private EditText user_age;
+    private EditText user_name_et;
+    private EditText user_age_et;
+    private Button sign_in_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
-        user_name = (EditText) findViewById(R.id.user_name);
-        user_age = (EditText) findViewById(R.id.user_age);
+        getinfoandsignin();
+
+    }
+
+    public void getinfoandsignin() {
+        user_name_et = (EditText) findViewById(R.id.user_name);
+        user_age_et = (EditText) findViewById(R.id.user_age);
+        sign_in_btn = (Button) findViewById(R.id.sign_in_button);
+
+        //user clicked sign in button after entering details
+        sign_in_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+
+                //store name entered in variable
+                String inputname = user_name_et.getText().toString();
+                //store entered age in variable
+                String inputage = user_age_et.getText().toString();
+
+                //check if fields are not empty ----------------------------------
+
+                //create shared preference file
+                pref = getApplicationContext().getSharedPreferences("MediTrackPref", 0);
+                editor = pref.edit();
+                //store name in shared preference
+                editor.putString("user_name", inputname);
+                //store age in shared preference
+                editor.putString("user_age", inputage);
+                //go to new activity on click of signin button
+                sign_in_btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View arg0) {
+                        // Start Addcoupon.class
+                        Intent myIntent = new Intent(LoginActivity.this,AllTabs.class);
+                        startActivity(myIntent);
+                    }
+                });
+            }
+        });
+
     }
 }
 
