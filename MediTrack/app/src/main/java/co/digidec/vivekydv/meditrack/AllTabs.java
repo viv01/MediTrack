@@ -45,6 +45,9 @@ public class AllTabs extends AppCompatActivity implements TabLayout.OnTabSelecte
         tabLayout.setOnTabSelectedListener(this);
         tabLayout.setupWithViewPager(viewPager);
 
+        int page = getIntent().getIntExtra("selectedTab", 0);
+        viewPager.setCurrentItem(page);
+
     }
 
     @Override

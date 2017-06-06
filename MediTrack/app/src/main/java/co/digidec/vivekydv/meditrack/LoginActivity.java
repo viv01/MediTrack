@@ -51,13 +51,24 @@ public class LoginActivity extends AppCompatActivity {
                 editor = pref.edit();
                 //store name in shared preference
                 editor.putString("user_name", inputname);
+                editor.commit();
                 //store age in shared preference
                 editor.putString("user_age", inputage);
+                editor.commit();
+                //store confirmation variable for personal details entry
+                editor.putInt("personaldetailsentered", 1);
+                editor.commit();
+
+                //store SOS set counter
+                //editor.putInt("sospresent",0);
+                //pref.edit().remove("sospresent").commit();
+
                 //go to new activity on click of signin button
                 sign_in_btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         // Start Addcoupon.class
-                        Intent myIntent = new Intent(LoginActivity.this,AllTabs.class);
+                        Intent myIntent = new Intent(LoginActivity.this, AllTabs.class);
+                        myIntent.putExtra("selectedTab", 2);
                         startActivity(myIntent);
                     }
                 });
