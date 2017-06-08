@@ -11,16 +11,16 @@ import java.util.ArrayList;
 /**
  * Created by vivekya on 6/6/2017.
  */
-public class Tab1ListAdapter extends ArrayAdapter<String> {
+public class Tab1ListAdapter extends ArrayAdapter<Medicine> {
 
     private Context context;
-    private ArrayList<String> stringlist = new ArrayList<String>();
+    private ArrayList<Medicine> medicines = new ArrayList<Medicine>();
     private int pos=0;
 
-    public Tab1ListAdapter(Context context, int layoutId, ArrayList<String> users) {
-        super(context, layoutId, users);
+    public Tab1ListAdapter(Context context, int layoutId, ArrayList<Medicine> medicines) {
+        super(context, layoutId, medicines);
         this.context = context;
-        this.stringlist = users;
+        this.medicines = medicines;
     }
 
     @Override
@@ -35,8 +35,8 @@ public class Tab1ListAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public String getItem(int position) {
-        return stringlist.get(position);
+    public Medicine getItem(int position) {
+        return medicines.get(position);
     }
 
     @Override
@@ -51,12 +51,17 @@ public class Tab1ListAdapter extends ArrayAdapter<String> {
             rowView = inflator.inflate(R.layout.tab1_listrow, parent, false);
         }
 
-        String currentPosition = getItem(position);
+        Medicine currentPosition = getItem(position);
 
         if(currentPosition != null) {
             TextView name = (TextView) rowView.findViewById(R.id.name);
-            name.setText(stringlist.get(position).toString());
+            name.setText(medicines.get(position).getName().toString());
         }
         return rowView;
+    }
+
+    @Override
+    public int getCount() {
+        return medicines.size();
     }
 }

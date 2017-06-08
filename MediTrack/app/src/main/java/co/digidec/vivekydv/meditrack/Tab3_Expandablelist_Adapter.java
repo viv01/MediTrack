@@ -129,7 +129,7 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                             {
                                 String present_value_string = numpick1tv.getText().toString();
                                 int present_value_int = Integer.parseInt(present_value_string);
-                                if(present_value_int>0){
+                                if(present_value_int>1){
                                     present_value_int--;
                                     numpick1tv.setText(String.valueOf(present_value_int));
                                 }
@@ -263,7 +263,7 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                             {
                                 String present_value_string = numpick3tv.getText().toString();
                                 int present_value_int = Integer.parseInt(present_value_string);
-                                if(present_value_int>0){
+                                if(present_value_int>1){
                                     present_value_int--;
                                     numpick3tv.setText(String.valueOf(present_value_int));
                                 }
@@ -355,17 +355,85 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                         });
 
                         //cancel adding new medicine
-                        Button cancelnewentrybtn = (Button) dialog.findViewById(R.id.cancelnewentry);
-                        cancelnewentrybtn.setOnClickListener(new View.OnClickListener() {
+                        Button btn_cancelnewentry = (Button) dialog.findViewById(R.id.cancelnewentry);
+                        btn_cancelnewentry.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
                             }
                         });
 
-                        //save new medicine details in database ----------------------
-                        //get details from all edittexts and store in variables
-                        
+                        //------------save new medicine details in database on click of add button ---------------
+                        Button btn_addnewmedicine = (Button) dialog.findViewById(R.id.addnewentry);
+                        btn_addnewmedicine.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //-------get details from all edittexts and store in variables---
+                                //define all xml edittexts
+                                EditText et_name = (EditText) dialog.findViewById(R.id.nameet);
+                                EditText et_frequency = (EditText) dialog.findViewById(R.id.frequencyet);
+                                TextView tv_doseinonetime = (TextView) dialog.findViewById(R.id.numpick1tv);
+                                TextView tv_dosecountperday = (TextView) dialog.findViewById(R.id.numpick2tv);
+                                TextView tv_purchasecount = (TextView) dialog.findViewById(R.id.numpick3tv);
+                                TextView tv_dosetime1 = (TextView) dialog.findViewById(R.id.dose1timetv);
+                                TextView tv_dosetime2 = (TextView) dialog.findViewById(R.id.dose2timetv);
+                                TextView tv_dosetime3 = (TextView) dialog.findViewById(R.id.dose3timetv);
+                                TextView tv_dosetime4 = (TextView) dialog.findViewById(R.id.dose4timetv);
+
+                                //define variables
+                                String var_medicinename="";
+                                String var_frequency="";
+                                String var_dosein1time="";
+                                String var_dosecountperday="";
+                                String var_timetotakemedicines="";
+                                String var_numberofmedicinepurchased="";
+
+                                //put values in variables created
+                                if(et_name.getText().toString()!=""){
+                                    var_medicinename=et_name.getText().toString();
+                                }
+                                if(et_frequency.getText().toString()!=""){
+                                    var_frequency=et_frequency.getText().toString();
+                                }
+                                if(tv_doseinonetime.getText().toString()!=""){
+                                    var_dosein1time=tv_doseinonetime.getText().toString();
+                                }
+                                if(tv_dosecountperday.getText().toString()!=""){
+                                    var_dosecountperday=tv_dosecountperday.getText().toString();
+                                }
+                                if(tv_purchasecount.getText().toString()!=""){
+                                    var_numberofmedicinepurchased=tv_purchasecount.getText().toString();
+                                }
+
+                                if(tv_dosetime1.getText().toString()!=""){
+                                    var_timetotakemedicines=var_timetotakemedicines+","+tv_dosetime1.getText().toString();
+                                }
+                                if(tv_dosetime2.getText().toString()!=""){
+                                    var_timetotakemedicines=var_timetotakemedicines+","+tv_dosetime2.getText().toString();
+                                }
+                                if(tv_dosetime3.getText().toString()!=""){
+                                    var_timetotakemedicines=var_timetotakemedicines+","+tv_dosetime3.getText().toString();
+                                }
+                                if(tv_dosetime4.getText().toString()!=""){
+                                    var_timetotakemedicines=var_timetotakemedicines+","+tv_dosetime4.getText().toString();
+                                }
+                                var_timetotakemedicines = var_timetotakemedicines.startsWith(",") ? var_timetotakemedicines.substring(1) : var_timetotakemedicines;
+
+                                //get database handle
+                                final DatabaseActivity db = new DatabaseActivity(context);
+                                //prepare database query
+                                int max=0;
+                                max=db.maxCount();
+                                max=max+1;
+                                //add to database
+                                db.addMedicine(new Medicine(max,var_medicinename,var_frequency,var_dosein1time,var_dosecountperday,var_timetotakemedicines,var_numberofmedicinepurchased));
+                                dialog.dismiss();
+
+                            }
+                        });
+
+
+
                     }});
                 //expandedList2TextView.setText(expandedListText);
 

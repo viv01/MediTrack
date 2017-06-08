@@ -80,9 +80,9 @@ public class Tab2 extends Fragment {
             for (Medicine wp : mAllData) {
                 if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)
                         |wp.getFrequency().toLowerCase(Locale.getDefault()).contains(charText)
-                        |wp.getDose().toLowerCase(Locale.getDefault()).contains(charText)
-                        |wp.getDoseCount().toLowerCase(Locale.getDefault()).contains(charText)
-                        |wp.getTime().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        |wp.getDoseOneTime().toLowerCase(Locale.getDefault()).contains(charText)
+                        |wp.getDosePerDay().toLowerCase(Locale.getDefault()).contains(charText)
+                        |wp.getDoseTime().toLowerCase(Locale.getDefault()).contains(charText)) {
                     allmessagedetailslist.add(wp);
                 }
             }
