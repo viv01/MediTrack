@@ -4,12 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Tab 2"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:hint="Search here..."
+        android:textColorHint="#000"
+        android:textColor="#000"
+        android:background="#d3d3d3"
+        android:id="@+id/inputsearch"/>
+    <ListView
+        android:id="@+id/allmedicinelist"
+        android:layout_below="@+id/inputsearch"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:divider="#b5b5b5"
+        android:dividerHeight="1dp"
+        android:paddingBottom="60dp"
+        android:clipToPadding="false"/>
 
 </RelativeLayout>

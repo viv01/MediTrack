@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/editscrollviewlayout"
+        android:layout_height="wrap_content"
+        android:isScrollContainer="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/nametv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:background="#d3d3d3"
+                android:paddingTop="10dp"
+                android:hint="Medicine Name" />
+
+            <EditText
+                android:id="@+id/nameet"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:paddingTop="10dp"
+                android:hint="enter medicine name"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/frequencytv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="10dp"
+                android:background="#d3d3d3"
+                android:hint="Frequency (daily or weekly)" />
+            <EditText
+                android:id="@+id/frequencyet"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:paddingTop="10dp"
+                android:hint="enter frequency (daily or weekly)"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/doseatatimetv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="10dp"
+                android:background="#d3d3d3"
+                android:hint="Dose in one time" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_gradient"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/numpick1dec"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/numpick1tv"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/numpick1inc"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/doseperdaytv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="10dp"
+                android:background="#d3d3d3"
+                android:hint="Dose count per day" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_gradient"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/numpick2dec"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/numpick2tv"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/numpick2inc"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dosetimetv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="10dp"
+                android:background="#d3d3d3"
+                android:hint="Time to take medicine" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dose 1 time:"
+                    android:id="@+id/dose1time"
+                    android:layout_weight="1" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/does1timetv"
+                    android:text="9:30PM"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dose 2 time:"
+                    android:id="@+id/dose2time"
+                    android:layout_weight="1" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/does2timetv"
+                    android:text="9:30PM"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dose 3 time:"
+                    android:id="@+id/dose3time"
+                    android:layout_weight="1" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/does3timetv"
+                    android:text="9:30PM"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dose 4 time:"
+                    android:id="@+id/dose4time"
+                    android:layout_weight="1" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/does4timetv"
+                    android:text="9:30PM"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/dosetimeet"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:paddingTop="10dp"
+                android:hint="enter time to take medicine at"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/purchasedcounttv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="10dp"
+                android:background="#d3d3d3"
+                android:hint="Number of medicine purchased" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_gradient"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/numpick3dec"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/numpick3tv"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/numpick3inc"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:id="@+id/invisiblebutton"
+                android:visibility="invisible"
+                style="?android:attr/borderlessButtonStyle"/>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="50dp"
+        android:weightSum="2">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ADD"
+            android:id="@+id/add" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:layout_weight="1"
+            android:id="@+id/cancelnewentry" />
+    </LinearLayout>
+
+
+</RelativeLayout>

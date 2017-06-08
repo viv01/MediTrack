@@ -11,13 +11,13 @@ import java.util.ArrayList;
 /**
  * Created by vivekya on 6/6/2017.
  */
-public class Tab1ListAdapter extends ArrayAdapter<String> {
+public class Tab2ListAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private ArrayList<String> stringlist = new ArrayList<String>();
     private int pos=0;
 
-    public Tab1ListAdapter(Context context, int layoutId, ArrayList<String> users) {
+    public Tab2ListAdapter(Context context, int layoutId, ArrayList<String> users) {
         super(context, layoutId, users);
         this.context = context;
         this.stringlist = users;
@@ -48,7 +48,7 @@ public class Tab1ListAdapter extends ArrayAdapter<String> {
         if (rowView == null) {
             LayoutInflater inflator;
             inflator = LayoutInflater.from(getContext());
-            rowView = inflator.inflate(R.layout.tab1_listrow, parent, false);
+            rowView = inflator.inflate(R.layout.tab2_listrow, parent, false);
         }
 
         String currentPosition = getItem(position);

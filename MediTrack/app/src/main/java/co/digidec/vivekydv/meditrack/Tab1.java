@@ -13,11 +13,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Belal on 2/3/2016.
- */
-
-//Our class extending fragment
 public class Tab1 extends Fragment {
 
     Tab1ListAdapter adapter1;

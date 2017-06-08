@@ -6,6 +6,8 @@ package co.digidec.vivekydv.meditrack;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -17,6 +19,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
@@ -28,7 +32,8 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
     private List<String> expandableListTitle;
     private LinkedHashMap<String, List<String>> expandableListDetail;
 
-    public Tab3_Expandablelist_Adapter(Context context, List<String> expandableListTitle,LinkedHashMap<String, List<String>> expandableListDetail) {
+    public Tab3_Expandablelist_Adapter(Context context, List<String> expandableListTitle, LinkedHashMap<String, List<String>> expandableListDetail) {
+        super();
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -69,8 +74,123 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
             if(listPosition==1){
                 //final String expandedListText = (String) getChild(listPosition, expandedListPosition);
                 convertView = layoutInflater.inflate(R.layout.tab3_section2_listrow, null);
-                TextView expandedList2TextView = (TextView) convertView.findViewById(R.id.section2_listitem1);
+                //TextView expandedList2TextView = (TextView) convertView.findViewById(R.id.name);
+                Button addnewmedicine = (Button) convertView.findViewById(R.id.addnewmedicine);
+                addnewmedicine.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // custom dialog
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.tab3_addnewmedicine);
+                        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                        dialog.setTitle("Title...");
+                        dialog.show();
+
+
+
+                        // dose in one time numberpicker
+                        final TextView numpick1tv = (TextView) dialog.findViewById(R.id.numpick1tv);
+                        Button numpick1inc = (Button) dialog.findViewById(R.id.numpick1inc);
+                        Button numpick1dec = (Button) dialog.findViewById(R.id.numpick1dec);
+                        numpick1inc.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String present_value_string = numpick1tv.getText().toString();
+                                int present_value_int = Integer.parseInt(present_value_string);
+                                present_value_int++;
+                                numpick1tv.setText(String.valueOf(present_value_int));
+                            }
+                        });
+                        numpick1dec.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String present_value_string = numpick1tv.getText().toString();
+                                int present_value_int = Integer.parseInt(present_value_string);
+                                if(present_value_int>0){
+                                    present_value_int--;
+                                    numpick1tv.setText(String.valueOf(present_value_int));
+                                }
+                            }
+                        });
+
+
+                        // dose count per day numberpicker
+                        final TextView numpick2tv = (TextView) dialog.findViewById(R.id.numpick2tv);
+                        Button numpick2inc = (Button) dialog.findViewById(R.id.numpick2inc);
+                        Button numpick2dec = (Button) dialog.findViewById(R.id.numpick2dec);
+                        numpick2inc.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String present_value_string = numpick2tv.getText().toString();
+                                int present_value_int = Integer.parseInt(present_value_string);
+                                present_value_int++;
+                                numpick2tv.setText(String.valueOf(present_value_int));
+                            }
+                        });
+                        numpick2dec.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String present_value_string = numpick2tv.getText().toString();
+                                int present_value_int = Integer.parseInt(present_value_string);
+                                if(present_value_int>0){
+                                    present_value_int--;
+                                    numpick2tv.setText(String.valueOf(present_value_int));
+                                }
+                            }
+                        });
+
+
+
+                        // number of medicines purchased numberpicker
+                        final TextView numpick3tv = (TextView) dialog.findViewById(R.id.numpick3tv);
+                        Button numpick3inc = (Button) dialog.findViewById(R.id.numpick3inc);
+                        Button numpick3dec = (Button) dialog.findViewById(R.id.numpick3dec);
+                        numpick3inc.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String present_value_string = numpick3tv.getText().toString();
+                                int present_value_int = Integer.parseInt(present_value_string);
+                                present_value_int++;
+                                numpick3tv.setText(String.valueOf(present_value_int));
+                            }
+                        });
+                        numpick3dec.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String present_value_string = numpick3tv.getText().toString();
+                                int present_value_int = Integer.parseInt(present_value_string);
+                                if(present_value_int>0){
+                                    present_value_int--;
+                                    numpick3tv.setText(String.valueOf(present_value_int));
+                                }
+                            }
+                        });
+
+
+
+                        //cancel adding new medicine
+                        Button cancelnewentrybtn = (Button) dialog.findViewById(R.id.cancelnewentry);
+                        cancelnewentrybtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }});
                 //expandedList2TextView.setText(expandedListText);
+
             }
             if(listPosition==2){
                 //final String expandedListText = (String) getChild(listPosition, expandedListPosition);
