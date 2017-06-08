@@ -152,7 +152,7 @@
                     android:layout_weight="1" />
                 <TextView
                     android:layout_width="0dp"
-                    android:id="@+id/does1timetv"
+                    android:id="@+id/dose1timetv"
                     android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
@@ -170,7 +170,7 @@
                     android:layout_weight="1" />
                 <TextView
                     android:layout_width="0dp"
-                    android:id="@+id/does2timetv"
+                    android:id="@+id/dose2timetv"
                     android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
@@ -188,7 +188,7 @@
                     android:layout_weight="1" />
                 <TextView
                     android:layout_width="0dp"
-                    android:id="@+id/does3timetv"
+                    android:id="@+id/dose3timetv"
                     android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
@@ -206,22 +206,12 @@
                     android:layout_weight="1" />
                 <TextView
                     android:layout_width="0dp"
-                    android:id="@+id/does4timetv"
+                    android:id="@+id/dose4timetv"
                     android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
             </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/dosetimeet"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-                android:paddingTop="10dp"
-                android:hint="enter time to take medicine at"
-                android:paddingBottom="10dp" />
 
             <TextView
                 android:id="@+id/purchasedcounttv"

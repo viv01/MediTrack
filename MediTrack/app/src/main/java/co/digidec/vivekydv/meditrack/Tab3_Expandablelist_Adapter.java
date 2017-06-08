@@ -3,11 +3,13 @@ package co.digidec.vivekydv.meditrack;
 /**
  * Created by vivekya on 6/3/2017.
  */
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -22,6 +24,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
 
@@ -86,6 +89,22 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                         dialog.setTitle("Title...");
                         dialog.show();
 
+                        final Button dose1timebtnbtn = (Button) dialog.findViewById(R.id.dose1time);
+                        final TextView dose1timetv = (TextView) dialog.findViewById(R.id.dose1timetv);
+                        final Button dose2timebtnbtn = (Button) dialog.findViewById(R.id.dose2time);
+                        final TextView dose2timetv = (TextView) dialog.findViewById(R.id.dose2timetv);
+                        final Button dose3timebtnbtn = (Button) dialog.findViewById(R.id.dose3time);
+                        final TextView dose3timetv = (TextView) dialog.findViewById(R.id.dose3timetv);
+                        final Button dose4timebtnbtn = (Button) dialog.findViewById(R.id.dose4time);
+                        final TextView dose4timetv = (TextView) dialog.findViewById(R.id.dose4timetv);
+
+                        // on create view disappear the extra time set buttons except 1
+                        dose2timebtnbtn.setVisibility(View.GONE);
+                        dose3timebtnbtn.setVisibility(View.GONE);
+                        dose4timebtnbtn.setVisibility(View.GONE);
+                        dose2timetv.setVisibility(View.GONE);
+                        dose3timetv.setVisibility(View.GONE);
+                        dose4timetv.setVisibility(View.GONE);
 
 
                         // dose in one time numberpicker
@@ -117,8 +136,8 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                             }
                         });
 
-
                         // dose count per day numberpicker
+                        //display dissappear timeset buttons for dose
                         final TextView numpick2tv = (TextView) dialog.findViewById(R.id.numpick2tv);
                         Button numpick2inc = (Button) dialog.findViewById(R.id.numpick2inc);
                         Button numpick2dec = (Button) dialog.findViewById(R.id.numpick2dec);
@@ -129,8 +148,45 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                             {
                                 String present_value_string = numpick2tv.getText().toString();
                                 int present_value_int = Integer.parseInt(present_value_string);
-                                present_value_int++;
+                                ++present_value_int;
                                 numpick2tv.setText(String.valueOf(present_value_int));
+                                if(present_value_int==1){
+                                    dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose1timetv.setVisibility(View.VISIBLE);
+                                    dose2timebtnbtn.setVisibility(View.GONE);
+                                    dose3timebtnbtn.setVisibility(View.GONE);
+                                    dose4timebtnbtn.setVisibility(View.GONE);
+                                    dose2timetv.setVisibility(View.GONE);
+                                    dose3timetv.setVisibility(View.GONE);
+                                    dose4timetv.setVisibility(View.GONE);
+                                }else if(present_value_int==2){
+                                    dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose1timetv.setVisibility(View.VISIBLE);
+                                    dose2timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose2timetv.setVisibility(View.VISIBLE);
+                                    dose3timebtnbtn.setVisibility(View.GONE);
+                                    dose4timebtnbtn.setVisibility(View.GONE);
+                                    dose3timetv.setVisibility(View.GONE);
+                                    dose4timetv.setVisibility(View.GONE);
+                                }else if(present_value_int==3){
+                                    dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose1timetv.setVisibility(View.VISIBLE);
+                                    dose2timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose2timetv.setVisibility(View.VISIBLE);
+                                    dose3timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose3timetv.setVisibility(View.VISIBLE);
+                                    dose4timebtnbtn.setVisibility(View.GONE);
+                                    dose4timetv.setVisibility(View.GONE);
+                                }else if(present_value_int>=4){
+                                    dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose1timetv.setVisibility(View.VISIBLE);
+                                    dose2timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose2timetv.setVisibility(View.VISIBLE);
+                                    dose3timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose3timetv.setVisibility(View.VISIBLE);
+                                    dose4timebtnbtn.setVisibility(View.VISIBLE);
+                                    dose4timetv.setVisibility(View.VISIBLE);
+                                }
                             }
                         });
                         numpick2dec.setOnClickListener(new View.OnClickListener()
@@ -140,13 +196,49 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                             {
                                 String present_value_string = numpick2tv.getText().toString();
                                 int present_value_int = Integer.parseInt(present_value_string);
-                                if(present_value_int>0){
-                                    present_value_int--;
+                                if(present_value_int>1){
+                                    --present_value_int;
                                     numpick2tv.setText(String.valueOf(present_value_int));
+                                    if(present_value_int<=1){
+                                        dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose1timetv.setVisibility(View.VISIBLE);
+                                        dose2timebtnbtn.setVisibility(View.GONE);
+                                        dose3timebtnbtn.setVisibility(View.GONE);
+                                        dose4timebtnbtn.setVisibility(View.GONE);
+                                        dose2timetv.setVisibility(View.GONE);
+                                        dose3timetv.setVisibility(View.GONE);
+                                        dose4timetv.setVisibility(View.GONE);
+                                    }else if(present_value_int==2){
+                                        dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose1timetv.setVisibility(View.VISIBLE);
+                                        dose2timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose2timetv.setVisibility(View.VISIBLE);
+                                        dose3timebtnbtn.setVisibility(View.GONE);
+                                        dose4timebtnbtn.setVisibility(View.GONE);
+                                        dose3timetv.setVisibility(View.GONE);
+                                        dose4timetv.setVisibility(View.GONE);
+                                    }else if(present_value_int==3){
+                                        dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose1timetv.setVisibility(View.VISIBLE);
+                                        dose2timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose2timetv.setVisibility(View.VISIBLE);
+                                        dose3timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose3timetv.setVisibility(View.VISIBLE);
+                                        dose4timebtnbtn.setVisibility(View.GONE);
+                                        dose4timetv.setVisibility(View.GONE);
+                                    }else if(present_value_int>=4){
+                                        dose1timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose1timetv.setVisibility(View.VISIBLE);
+                                        dose2timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose2timetv.setVisibility(View.VISIBLE);
+                                        dose3timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose3timetv.setVisibility(View.VISIBLE);
+                                        dose4timebtnbtn.setVisibility(View.VISIBLE);
+                                        dose4timetv.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         });
-
 
 
                         // number of medicines purchased numberpicker
@@ -178,7 +270,89 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                             }
                         });
 
+                        //set dose 1 time
+                        dose1timebtnbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // TODO Auto-generated method stub
+                                Calendar mcurrentTime = Calendar.getInstance();
+                                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                                int minute = mcurrentTime.get(Calendar.MINUTE);
+                                TimePickerDialog mTimePicker;
+                                mTimePicker = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                        dose1timetv.setText( selectedHour + ":" + selectedMinute);
+                                    }
+                                }, hour, minute, true);//Yes 24 hour time
+                                mTimePicker.setTitle("Select Time");
+                                mTimePicker.show();
 
+                            }
+                        });
+
+                        //set dose 2 time
+                        dose2timebtnbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // TODO Auto-generated method stub
+                                Calendar mcurrentTime = Calendar.getInstance();
+                                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                                int minute = mcurrentTime.get(Calendar.MINUTE);
+                                TimePickerDialog mTimePicker;
+                                mTimePicker = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                        dose2timetv.setText( selectedHour + ":" + selectedMinute);
+                                    }
+                                }, hour, minute, true);//Yes 24 hour time
+                                mTimePicker.setTitle("Select Time");
+                                mTimePicker.show();
+
+                            }
+                        });
+
+                        //set dose 3 time
+                        dose3timebtnbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // TODO Auto-generated method stub
+                                Calendar mcurrentTime = Calendar.getInstance();
+                                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                                int minute = mcurrentTime.get(Calendar.MINUTE);
+                                TimePickerDialog mTimePicker;
+                                mTimePicker = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                        dose3timetv.setText( selectedHour + ":" + selectedMinute);
+                                    }
+                                }, hour, minute, true);//Yes 24 hour time
+                                mTimePicker.setTitle("Select Time");
+                                mTimePicker.show();
+
+                            }
+                        });
+
+                        //set dose 4 time
+                        dose4timebtnbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // TODO Auto-generated method stub
+                                Calendar mcurrentTime = Calendar.getInstance();
+                                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                                int minute = mcurrentTime.get(Calendar.MINUTE);
+                                TimePickerDialog mTimePicker;
+                                mTimePicker = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                        dose4timetv.setText( selectedHour + ":" + selectedMinute);
+                                    }
+                                }, hour, minute, true);//Yes 24 hour time
+                                mTimePicker.setTitle("Select Time");
+                                mTimePicker.show();
+
+                            }
+                        });
 
                         //cancel adding new medicine
                         Button cancelnewentrybtn = (Button) dialog.findViewById(R.id.cancelnewentry);
@@ -188,6 +362,10 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                                 dialog.dismiss();
                             }
                         });
+
+                        //save new medicine details in database ----------------------
+                        //get details from all edittexts and store in variables
+                        
                     }});
                 //expandedList2TextView.setText(expandedListText);
 
