@@ -22,7 +22,9 @@ public class Tab2 extends Fragment {
     Tab2ListAdapter adapter2;
     protected View mView;
     EditText inputSearch;
-    final ArrayList<Medicine> allmessagedetailslist = new ArrayList<Medicine>();
+    ArrayList<Medicine> medicines = new ArrayList<Medicine>();
+    DatabaseActivity db;
+
     ArrayList<Medicine> mAllData=new ArrayList<Medicine>();
 
     @Override
@@ -33,14 +35,18 @@ public class Tab2 extends Fragment {
 
         final ListView listview = (ListView) mView.findViewById(R.id.allmedicinelist);
 
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile","Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2", "Ubuntu", "Windows7" };
+       /** String[] values = new String[] { "Android", "iPhone", "WindowsMobile","Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2", "Ubuntu", "Windows7" };
 
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
             list.add(values[i]);
-        }
+        }**/
+        db = new DatabaseActivity(getContext());
+        medicines = db.getAllMedicine_recent_first();
+        mAllData.addAll(medicines);
 
-        adapter2 = new Tab2ListAdapter(this.getContext(),R.layout.tab2_listrow, list);
+        adapter2 = new Tab2ListAdapter(this.getContext(),R.layout.tab2_listrow, medicines);
+
         inputSearch = (EditText) mView.findViewById(R.id.inputsearch);
         inputSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +55,7 @@ public class Tab2 extends Fragment {
             }
         });
         listview.setAdapter(adapter2);
+        doSearch();
         return v;
     }
 
@@ -73,17 +80,19 @@ public class Tab2 extends Fragment {
     }
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
-        allmessagedetailslist.clear();
+        medicines.clear();
         if (charText.length() == 0) {
-            allmessagedetailslist.addAll(mAllData);
+            medicines.addAll(mAllData);
         } else {
             for (Medicine wp : mAllData) {
                 if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)
                         |wp.getFrequency().toLowerCase(Locale.getDefault()).contains(charText)
                         |wp.getDoseOneTime().toLowerCase(Locale.getDefault()).contains(charText)
                         |wp.getDosePerDay().toLowerCase(Locale.getDefault()).contains(charText)
-                        |wp.getDoseTime().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    allmessagedetailslist.add(wp);
+                        |wp.getDoseTime().toLowerCase(Locale.getDefault()).contains(charText)
+                        |wp.getStartDate().toLowerCase(Locale.getDefault()).contains(charText)
+                        ||wp.getEndDate().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    medicines.add(wp);
                 }
             }
         }

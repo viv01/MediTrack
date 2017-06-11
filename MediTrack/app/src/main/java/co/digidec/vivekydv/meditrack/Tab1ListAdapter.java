@@ -56,6 +56,18 @@ public class Tab1ListAdapter extends ArrayAdapter<Medicine> {
         if(currentPosition != null) {
             TextView name = (TextView) rowView.findViewById(R.id.name);
             name.setText(medicines.get(position).getName().toString());
+            TextView frequency = (TextView) rowView.findViewById(R.id.frequency);
+            frequency.setText(medicines.get(position).getFrequency().toString());
+            TextView quantity = (TextView) rowView.findViewById(R.id.quantity);
+            quantity.setText(medicines.get(position).getDoseOneTime().toString());
+            TextView perday = (TextView) rowView.findViewById(R.id.perday);
+            perday.setText(medicines.get(position).getDosePerDay().toString());
+            TextView time = (TextView) rowView.findViewById(R.id.time);
+            time.setText(medicines.get(position).getDoseTime().toString());
+            TextView startdate = (TextView) rowView.findViewById(R.id.startdatetv);
+            startdate.setText(medicines.get(position).getStartDate().toString());
+            TextView enddate = (TextView) rowView.findViewById(R.id.enddatetv);
+            enddate.setText(medicines.get(position).getEndDate().toString());
         }
         return rowView;
     }

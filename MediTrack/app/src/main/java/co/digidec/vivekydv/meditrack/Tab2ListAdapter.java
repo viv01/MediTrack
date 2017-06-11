@@ -11,16 +11,16 @@ import java.util.ArrayList;
 /**
  * Created by vivekya on 6/6/2017.
  */
-public class Tab2ListAdapter extends ArrayAdapter<String> {
+public class Tab2ListAdapter extends ArrayAdapter<Medicine> {
 
     private Context context;
-    private ArrayList<String> stringlist = new ArrayList<String>();
+    private ArrayList<Medicine> medicines = new ArrayList<Medicine>();
     private int pos=0;
 
-    public Tab2ListAdapter(Context context, int layoutId, ArrayList<String> users) {
-        super(context, layoutId, users);
+    public Tab2ListAdapter(Context context, int layoutId, ArrayList<Medicine> medicines) {
+        super(context, layoutId, medicines);
         this.context = context;
-        this.stringlist = users;
+        this.medicines = medicines;
     }
 
     @Override
@@ -35,8 +35,8 @@ public class Tab2ListAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public String getItem(int position) {
-        return stringlist.get(position);
+    public Medicine getItem(int position) {
+        return medicines.get(position);
     }
 
     @Override
@@ -51,11 +51,23 @@ public class Tab2ListAdapter extends ArrayAdapter<String> {
             rowView = inflator.inflate(R.layout.tab2_listrow, parent, false);
         }
 
-        String currentPosition = getItem(position);
+        Medicine currentPosition = getItem(position);
 
         if(currentPosition != null) {
             TextView name = (TextView) rowView.findViewById(R.id.name);
-            name.setText(stringlist.get(position).toString());
+            name.setText(medicines.get(position).getName().toString());
+            TextView frequency = (TextView) rowView.findViewById(R.id.frequency);
+            frequency.setText(medicines.get(position).getFrequency().toString());
+            TextView quantity = (TextView) rowView.findViewById(R.id.quantity);
+            quantity.setText(medicines.get(position).getDoseOneTime().toString());
+            TextView perday = (TextView) rowView.findViewById(R.id.perday);
+            perday.setText(medicines.get(position).getDosePerDay().toString());
+            TextView time = (TextView) rowView.findViewById(R.id.time);
+            time.setText(medicines.get(position).getDoseTime().toString());
+            TextView startdate = (TextView) rowView.findViewById(R.id.startdatetv);
+            startdate.setText(medicines.get(position).getStartDate().toString());
+            TextView enddate = (TextView) rowView.findViewById(R.id.enddatetv);
+            enddate.setText(medicines.get(position).getEndDate().toString());
         }
         return rowView;
     }

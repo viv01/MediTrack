@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
                 android:paddingTop="10dp"
+                android:text="med tab"
                 android:hint="enter medicine name"
                 android:paddingBottom="10dp" />
 
@@ -49,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
                 android:paddingTop="10dp"
+                android:text="daily"
                 android:hint="enter frequency (daily or weekly)"
                 android:paddingBottom="10dp" />
 
@@ -153,7 +155,6 @@
                 <TextView
                     android:layout_width="0dp"
                     android:id="@+id/dose1timetv"
-                    android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
@@ -171,7 +172,6 @@
                 <TextView
                     android:layout_width="0dp"
                     android:id="@+id/dose2timetv"
-                    android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
@@ -189,7 +189,6 @@
                 <TextView
                     android:layout_width="0dp"
                     android:id="@+id/dose3timetv"
-                    android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
@@ -207,7 +206,6 @@
                 <TextView
                     android:layout_width="0dp"
                     android:id="@+id/dose4timetv"
-                    android:text="9:30PM"
                     android:gravity="center"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
@@ -250,6 +248,35 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:text="+" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/startdatetv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingTop="10dp"
+                android:background="#d3d3d3"
+                android:hint="Enter start date" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Select Date"
+                    android:id="@+id/selectstartdate"
+                    android:layout_weight="1" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/startdateselectedtv"
+                    android:text="11 mar"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
             </LinearLayout>
 
             <Button

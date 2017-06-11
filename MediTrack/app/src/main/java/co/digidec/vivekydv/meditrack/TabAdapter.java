@@ -15,9 +15,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     public final int PAGE_COUNT = 3;
 
-    private final String[] mTabsTitle = {"Tab1", "Tab2", "Tab3"};
-
-    //integer to count number of tabs
+    private final String[] mTabsTitle = {"Today", "All", "Settings"};
 
     //Constructor to the class
     public TabAdapter(FragmentManager fm, int tabCount) {

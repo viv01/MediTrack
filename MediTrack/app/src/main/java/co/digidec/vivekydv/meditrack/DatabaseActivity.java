@@ -28,6 +28,8 @@ public class DatabaseActivity extends SQLiteOpenHelper {
     private static final String COLUMN_DOSEPERDAY = "DOSEPERDAY";
     private static final String COLUMN_DOSETIME = "DOSETIME";
     private static final String COLUMN_PURCHASECOUNT = "PURCHASECOUNT";
+    private static final String COLUMN_STARTDATE = "STARTDATE";
+    private static final String COLUMN_ENDDATE = "ENDDATE";
 
     public DatabaseActivity(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,7 +38,7 @@ public class DatabaseActivity extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_MEDICINES_TABLE = "CREATE TABLE " + TABLE_MEDICINES + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + COLUMN_NAME + " TEXT," + COLUMN_FREQUENCY + " TEXT," + COLUMN_DOSEONETIME + " TEXT," + COLUMN_DOSEPERDAY + " TEXT," + COLUMN_DOSETIME + " TEXT," + COLUMN_PURCHASECOUNT + " TEXT" + ")";
+        String CREATE_MEDICINES_TABLE = "CREATE TABLE " + TABLE_MEDICINES + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + COLUMN_NAME + " TEXT," + COLUMN_FREQUENCY + " TEXT," + COLUMN_DOSEONETIME + " TEXT," + COLUMN_DOSEPERDAY + " TEXT," + COLUMN_DOSETIME + " TEXT," + COLUMN_PURCHASECOUNT + " TEXT," + COLUMN_STARTDATE + " TEXT," + COLUMN_ENDDATE + " TEXT" + ")";
         db.execSQL(CREATE_MEDICINES_TABLE);
     }
 
@@ -75,12 +77,14 @@ public class DatabaseActivity extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, medicine.getID());
-        values.put(COLUMN_NAME, medicine.getName()); // Coupon Name
-        values.put(COLUMN_FREQUENCY, medicine.getFrequency()); // Coupon description
-        values.put(COLUMN_DOSEONETIME, medicine.getDoseOneTime()); // Coupon discount
-        values.put(COLUMN_DOSEPERDAY, medicine.getDosePerDay()); // Coupon expiration date
-        values.put(COLUMN_DOSETIME, medicine.getDoseTime()); // Coupon code
+        values.put(COLUMN_NAME, medicine.getName());
+        values.put(COLUMN_FREQUENCY, medicine.getFrequency());
+        values.put(COLUMN_DOSEONETIME, medicine.getDoseOneTime());
+        values.put(COLUMN_DOSEPERDAY, medicine.getDosePerDay());
+        values.put(COLUMN_DOSETIME, medicine.getDoseTime());
         values.put(COLUMN_PURCHASECOUNT, medicine.getPurchaseCount());
+        values.put(COLUMN_STARTDATE, medicine.getStartDate());
+        values.put(COLUMN_ENDDATE, medicine.getEndDate());
 
         if(medicine.getName().length()==0){
             values.putNull(COLUMN_NAME);
@@ -99,6 +103,12 @@ public class DatabaseActivity extends SQLiteOpenHelper {
         }
         if(medicine.getPurchaseCount().length()==0){
             values.putNull(COLUMN_PURCHASECOUNT);
+        }
+        if(medicine.getStartDate().length()==0){
+            values.putNull(COLUMN_STARTDATE);
+        }
+        if(medicine.getEndDate().length()==0){
+            values.putNull(COLUMN_ENDDATE);
         }
 
         // Inserting Row
@@ -127,6 +137,70 @@ public class DatabaseActivity extends SQLiteOpenHelper {
                 medicine.setDosePerDay(cursor.getString(4));
                 medicine.setDoseTime(cursor.getString(5));
                 medicine.setPurchaseCount(cursor.getString(6));
+                medicine.setStartDate(cursor.getString(7));
+                medicine.setEndDate(cursor.getString(8));
+                // Adding coupon to list
+                medicineList.add(medicine);
+            } while (cursor.moveToNext());
+        }
+        // return coupon list
+        return medicineList;
+    }
+
+    // Getting Today Medicines (in order of added first)
+    public ArrayList<Medicine> getDailyMedicine_recent_first() {
+        ArrayList<Medicine> medicineList = new ArrayList<Medicine>();
+
+        // Select All Query. convert this to take if current date between startdate and enddate
+        String selectQuery = "SELECT  * FROM " + TABLE_MEDICINES + " WHERE FREQUENCY = 'daily' AND (DATE('NOW','localtime') BETWEEN STARTDATE AND ENDDATE) ORDER BY ID DESC ";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Medicine medicine = new Medicine();
+                medicine.setID(Integer.parseInt(cursor.getString(0)));
+                medicine.setName(cursor.getString(1));
+                medicine.setFrequency(cursor.getString(2));
+                medicine.setDoseOneTime(cursor.getString(3));
+                medicine.setDosePerDay(cursor.getString(4));
+                medicine.setDoseTime(cursor.getString(5));
+                medicine.setPurchaseCount(cursor.getString(6));
+                medicine.setStartDate(cursor.getString(7));
+                medicine.setEndDate(cursor.getString(8));
+                // Adding coupon to list
+                medicineList.add(medicine);
+            } while (cursor.moveToNext());
+        }
+        // return coupon list
+        return medicineList;
+    }
+
+    // Getting Today Medicines (in order of added first)
+    public ArrayList<Medicine> getWeeklyMedicine_recent_first() {
+        ArrayList<Medicine> medicineList = new ArrayList<Medicine>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_MEDICINES + " WHERE FREQUENCY = 'weekly' ORDER BY ID DESC ";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Medicine medicine = new Medicine();
+                medicine.setID(Integer.parseInt(cursor.getString(0)));
+                medicine.setName(cursor.getString(1));
+                medicine.setFrequency(cursor.getString(2));
+                medicine.setDoseOneTime(cursor.getString(3));
+                medicine.setDosePerDay(cursor.getString(4));
+                medicine.setDoseTime(cursor.getString(5));
+                medicine.setPurchaseCount(cursor.getString(6));
+                medicine.setStartDate(cursor.getString(7));
+                medicine.setEndDate(cursor.getString(8));
                 // Adding coupon to list
                 medicineList.add(medicine);
             } while (cursor.moveToNext());

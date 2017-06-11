@@ -2,13 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/sosbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="100dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/sos"
+        app:fabSize="normal"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
 
     <ListView
         android:id="@+id/todaysmedicinelist"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:divider="#b5b5b5"
+        android:layout_marginTop="20dp"
         android:dividerHeight="1dp"
         android:paddingBottom="60dp"
         android:clipToPadding="false"/>
