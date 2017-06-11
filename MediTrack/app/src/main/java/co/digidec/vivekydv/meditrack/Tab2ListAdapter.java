@@ -41,6 +41,7 @@ public class Tab2ListAdapter extends ArrayAdapter<Medicine> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        notifyDataSetChanged();
         View rowView = null;
         convertView = null;
         rowView = convertView;

@@ -5,6 +5,7 @@ package co.digidec.vivekydv.meditrack;
  */
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,4 +53,9 @@ public class TabAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return PAGE_COUNT;
     }
+
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
 }

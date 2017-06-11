@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
 
@@ -499,108 +500,113 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                             }
                             var_timetotakemedicines = var_timetotakemedicines.startsWith(",") ? var_timetotakemedicines.substring(1) : var_timetotakemedicines;
 
-                            //----calculate enddate == startdate
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                            Calendar c = Calendar.getInstance();
-                            String sDate1=var_medicinestartdate;
-                            try{ c.setTime(sdf.parse(sDate1)); }
-                            catch (java.text.ParseException e) { e.printStackTrace();}
-                            var_medicineenddate = sdf.format(c.getTime());
-                            System.out.println(var_medicineenddate);
+                            if(var_medicinename.length()<1 | var_frequency.length()<5 | var_timetotakemedicines.length()<3 | var_medicinestartdate.length() < 8){
+                                //check if any fields are empty
+                                Toast.makeText(context, "please enter correct values", Toast.LENGTH_LONG).show();
+
+                            }else{
+                                //----calculate enddate == startdate
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar c = Calendar.getInstance();
+                                String sDate1=var_medicinestartdate;
+                                try{ c.setTime(sdf.parse(sDate1)); }
+                                catch (java.text.ParseException e) { e.printStackTrace();}
+                                var_medicineenddate = sdf.format(c.getTime());
+                                System.out.println(var_medicineenddate);
 
 
-                            //----calculate how many days to add to startdate to make enddate
-                            //get today's date
-                            Calendar c1 = Calendar.getInstance();
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                            String todaysdate1 = df.format(c1.getTime());
+                                //----calculate how many days to add to startdate to make enddate
+                                //get today's date
+                                Calendar c1 = Calendar.getInstance();
+                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                                String todaysdate1 = df.format(c1.getTime());
 
-                            if(var_medicinestartdate.equals(todaysdate1)){
-                                //if startdate is today
-                                // get current time
-                                SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-                                Date dt = new Date();
-                                String currenttime = sdf1.format(dt);
-                                System.out.println(currenttime);
-                                // get list of times to take medicine
-                                System.out.println(var_timetotakemedicines);
-                                // break list on comma
-                                String[] values = var_timetotakemedicines.split(",");
-                                int count=0;
-                                for(int z=0;z<values.length;z++){
-                                    String temptime = values[z];
-                                    if (currenttime.compareTo(temptime) > 0) {
-                                        System.out.println("entered time has gone");
-                                    } else if (currenttime.compareTo(temptime) < 0) {
-                                        System.out.println("entered time in the future");
-                                        count++;
-                                    } else if (currenttime.compareTo(temptime) == 0) {
-                                        System.out.println("entered time is now");
-                                        count++;
+                                if(var_medicinestartdate.equals(todaysdate1)){
+                                    //if startdate is today
+                                    // get current time
+                                    SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+                                    Date dt = new Date();
+                                    String currenttime = sdf1.format(dt);
+                                    System.out.println(currenttime);
+                                    // get list of times to take medicine
+                                    System.out.println(var_timetotakemedicines);
+                                    // break list on comma
+                                    String[] values = var_timetotakemedicines.split(",");
+                                    int count=0;
+                                    for(int z=0;z<values.length;z++){
+                                        String temptime = values[z];
+                                        if (currenttime.compareTo(temptime) > 0) {
+                                            System.out.println("entered time has gone");
+                                        } else if (currenttime.compareTo(temptime) < 0) {
+                                            System.out.println("entered time in the future");
+                                            count++;
+                                        } else if (currenttime.compareTo(temptime) == 0) {
+                                            System.out.println("entered time is now");
+                                            count++;
+                                        }
+                                    }
+
+                                    //get the value of medicine taken for today
+                                    System.out.println(count);
+                                    System.out.println(count);
+
+                                    // get value of frequency - daily or weekly. based on that calculate end date
+                                    if (var_frequency.equals("daily")){
+                                        int var_medtotaketoday = count * (Integer.parseInt(var_dosein1time));
+                                        int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
+                                        int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
+                                        int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
+                                        noofextradays = ((medleftaftertoday / medtobetakeneveryday) + (((medleftaftertoday % medtobetakeneveryday) == 0) ? 0 : 1))*1;
+
+                                    }else{
+                                        int var_medtotaketoday = count * (Integer.parseInt(var_dosein1time));
+                                        int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
+                                        int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
+                                        int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
+                                        noofextradays = ((medleftaftertoday / medtobetakeneveryday) + (((medleftaftertoday % medtobetakeneveryday) == 0) ? 0 : 1))*7;
+                                    }
+
+                                }else{
+                                    //else if startdate if tomorrow onwards
+                                    // get value of frequency - daily or weekly. based on that calculate end date
+                                    if (var_frequency.equals("daily")){
+                                        //int var_medtotaketoday = Integer.parseInt(var_dosecountperday) * (Integer.parseInt(var_dosein1time));
+                                        int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
+                                        //int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
+                                        int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
+                                        noofextradays = ((totalmedpurchased / medtobetakeneveryday) + (((totalmedpurchased % medtobetakeneveryday) == 0) ? 0 : 1))*1;
+
+                                    }else{
+                                        //int var_medtotaketoday = Integer.parseInt(var_dosecountperday) * (Integer.parseInt(var_dosein1time));
+                                        int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
+                                        //int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
+                                        int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
+                                        noofextradays = ((totalmedpurchased / medtobetakeneveryday) + (((totalmedpurchased % medtobetakeneveryday) == 0) ? 0 : 1))*7;
                                     }
                                 }
 
-                                //get the value of medicine taken for today
-                                System.out.println(count);
-                                System.out.println(count);
+                                // Add calculated days to generate end date
+                                c.add(Calendar.DATE, noofextradays); // Adding 5 days
+                                var_medicineenddate = sdf.format(c.getTime());
+                                System.out.println(var_medicineenddate);
+                                System.out.println(var_medicineenddate);
 
-                                // get value of frequency - daily or weekly. based on that calculate end date
-                                if (var_frequency.equals("daily")){
-                                    int var_medtotaketoday = count * (Integer.parseInt(var_dosein1time));
-                                    int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
-                                    int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
-                                    int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
-                                    noofextradays = ((medleftaftertoday / medtobetakeneveryday) + (((medleftaftertoday % medtobetakeneveryday) == 0) ? 0 : 1))*1;
+                                //start and end dates should be in format 2017-04-19
+                                //currently input format is 16/06/2017 -> change to 2017-06-16
+                                //----apply modification to startdate for correct format
+                                //----apply modification to enddate for correct format
 
-                                }else{
-                                    int var_medtotaketoday = count * (Integer.parseInt(var_dosein1time));
-                                    int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
-                                    int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
-                                    int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
-                                    noofextradays = ((medleftaftertoday / medtobetakeneveryday) + (((medleftaftertoday % medtobetakeneveryday) == 0) ? 0 : 1))*7;
-                                }
 
-                            }else{
-                                //else if startdate if tomorrow onwards
-                                // get value of frequency - daily or weekly. based on that calculate end date
-                                if (var_frequency.equals("daily")){
-                                    //int var_medtotaketoday = Integer.parseInt(var_dosecountperday) * (Integer.parseInt(var_dosein1time));
-                                    int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
-                                    //int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
-                                    int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
-                                    noofextradays = ((totalmedpurchased / medtobetakeneveryday) + (((totalmedpurchased % medtobetakeneveryday) == 0) ? 0 : 1))*1;
-
-                                }else{
-                                    //int var_medtotaketoday = Integer.parseInt(var_dosecountperday) * (Integer.parseInt(var_dosein1time));
-                                    int totalmedpurchased = Integer.parseInt(var_numberofmedicinepurchased);
-                                    //int medleftaftertoday = totalmedpurchased - var_medtotaketoday;
-                                    int medtobetakeneveryday = Integer.parseInt(var_dosecountperday) * Integer.parseInt(var_dosein1time);
-                                    noofextradays = ((totalmedpurchased / medtobetakeneveryday) + (((totalmedpurchased % medtobetakeneveryday) == 0) ? 0 : 1))*7;
-                                }
+                                //get database handle and insert data in database
+                                final DatabaseActivity db = new DatabaseActivity(context);
+                                //prepare database query
+                                int max=0;
+                                max=db.maxCount();
+                                max=max+1;
+                                //add to database
+                                db.addMedicine(new Medicine(max,var_medicinename,var_frequency,var_dosein1time,var_dosecountperday,var_timetotakemedicines,var_numberofmedicinepurchased, var_medicinestartdate, var_medicineenddate));
+                                dialog.dismiss();
                             }
-
-                            // Add calculated days to generate end date
-                            c.add(Calendar.DATE, noofextradays); // Adding 5 days
-                            var_medicineenddate = sdf.format(c.getTime());
-                            System.out.println(var_medicineenddate);
-                            System.out.println(var_medicineenddate);
-
-                            //start and end dates should be in format 2017-04-19
-                            //currently input format is 16/06/2017 -> change to 2017-06-16
-                            //----apply modification to startdate for correct format
-                            //----apply modification to enddate for correct format
-
-
-                            //get database handle and insert data in database
-                            final DatabaseActivity db = new DatabaseActivity(context);
-                            //prepare database query
-                            int max=0;
-                            max=db.maxCount();
-                            max=max+1;
-                            //add to database
-                            db.addMedicine(new Medicine(max,var_medicinename,var_frequency,var_dosein1time,var_dosecountperday,var_timetotakemedicines,var_numberofmedicinepurchased, var_medicinestartdate, var_medicineenddate));
-                            dialog.dismiss();
-
                         }
                     });
                 }});
@@ -621,18 +627,44 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
             if(pref.contains("sospresent")){
                 //----------show SOS details----------------
                 //hide sos_add button, add_sos_name edittext and add_sos_number edittext
-                add_sos.setVisibility(View.GONE);
-                add_sos_name.setVisibility(View.GONE);
-                add_sos_number.setVisibility(View.GONE);
+                if(pref.getInt("sospresent",0)==1){
+                    add_sos.setVisibility(View.GONE);
+                    add_sos_name.setVisibility(View.GONE);
+                    add_sos_number.setVisibility(View.GONE);
 
-                //get details from shared pref
-                String sosname = pref.getString("sos_name",null).toString();
-                String sosnumber = pref.getString("sos_number",null).toString();
-                Log.d("sos1nameentry",sosname);
-                Log.d("sos1numberentry",sosnumber);
-                //show details in textviews
-                sos_name.setText("EMERGENCY NAME: "+ sosname);
-                sos_number.setText("EMERGENCY NUMBER: "+ sosnumber);
+                    //get details from shared pref
+                    String sosname = pref.getString("sos_name",null).toString();
+                    String sosnumber = pref.getString("sos_number",null).toString();
+
+                    //show details in textviews
+                    sos_name.setText("EMERGENCY NAME: "+ sosname);
+                    sos_number.setText("EMERGENCY NUMBER: "+ sosnumber);
+                }else{
+                    //hide name and number textviews
+                    sos_name.setVisibility(View.GONE);
+                    sos_number.setVisibility(View.GONE);
+
+                    //-----------on click of add button do the following-----------
+                    //get values from edittext
+                    add_sos.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String sosname = add_sos_name.getText().toString();
+                            String sosnumber = add_sos_number.getText().toString();
+                            Log.d("sosnameentry",sosname);
+                            Log.d("sosnumberentry",sosnumber);
+                            editor.putString("sos_name", sosname);
+                            editor.commit();
+                            editor.putString("sos_number", sosnumber);
+                            editor.commit();
+                            //update sos set counter in sharedpref
+                            editor.putInt("sospresent",1);
+                            editor.commit();
+                            notifyDataSetChanged();
+                        }
+                    });
+                }
+
             }else{
                 //hide name and number textviews
                 sos_name.setVisibility(View.GONE);

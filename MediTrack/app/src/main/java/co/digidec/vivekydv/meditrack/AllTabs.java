@@ -1,7 +1,9 @@
 package co.digidec.vivekydv.meditrack;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,16 +13,26 @@ import android.support.v7.widget.Toolbar;
  */
 public class AllTabs extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
-    //This is our tablayout
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
     private TabLayout tabLayout;
 
     //This is our viewPager
     private ViewPager viewPager;
+    TabAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_tabs);
+
+        pref = this.getSharedPreferences("MediTrackPref", 0);
+        editor = pref.edit();
+        if(!pref.contains("sospresent")) {
+            editor.putInt("sospresent",0);
+        }
+        editor.commit();
 
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -36,8 +48,9 @@ public class AllTabs extends AppCompatActivity implements TabLayout.OnTabSelecte
 
         //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
+
         //Creating our pager adapter
-        TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         //Adding adapter to pager
         viewPager.setAdapter(adapter);
 
@@ -45,7 +58,16 @@ public class AllTabs extends AppCompatActivity implements TabLayout.OnTabSelecte
         tabLayout.setOnTabSelectedListener(this);
         tabLayout.setupWithViewPager(viewPager);
 
-        int page = getIntent().getIntExtra("selectedTab", 0);
+
+        int page=0;
+
+        if(pref.contains("sospresent")){
+            if(pref.getInt("sospresent",0)==0){
+                page = getIntent().getIntExtra("selectedTab", 2);
+            }else{
+                page = getIntent().getIntExtra("selectedTab", 0);
+            }
+        }
         viewPager.setCurrentItem(page);
 
     }
