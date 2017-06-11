@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         //user clicked sign in button after entering details
         sign_in_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
+                
                 //store name entered in variable
                 String inputname = user_name_et.getText().toString();
                 //store entered age in variable
@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.commit();
                 //store confirmation variable for personal details entry
                 editor.putInt("personaldetailsentered", 1);
+                editor.putString("oldpersonaldetails", "PERSONAL DETAILS");
                 editor.commit();
 
                 //store SOS set counter
@@ -64,14 +65,22 @@ public class LoginActivity extends AppCompatActivity {
                 //pref.edit().remove("sospresent").commit();
 
                 //go to new activity on click of signin button
-                sign_in_btn.setOnClickListener(new View.OnClickListener() {
+                Intent myIntent = new Intent(LoginActivity.this, AllTabs.class);
+                myIntent.putExtra("selectedTab", 2);
+                startActivity(myIntent);
+                /**sign_in_btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
-                        // Start Addcoupon.class
-                        Intent myIntent = new Intent(LoginActivity.this, AllTabs.class);
-                        myIntent.putExtra("selectedTab", 2);
-                        startActivity(myIntent);
+
+
                     }
                 });
+                sign_in_btn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (hasFocus) {
+                            v.performClick();
+                        }
+                    }
+                });**/
             }
         });
 

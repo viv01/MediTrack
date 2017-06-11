@@ -51,12 +51,16 @@ public class Tab3 extends Fragment {
         // for showing name and age in section header (of personal details)
         if(pref.contains("personaldetailsentered")){
             for (LinkedHashMap.Entry<String, List<String>> entry : expandableListDetail.entrySet()) {
-                String key = entry.getKey();
+
+                ArrayList<String> alist = new ArrayList<String>(); alist.add("A");
                 String newkey=pref.getString("user_name",null)+"\n"+pref.getString("user_age",null);
-                ArrayList<String> alist = new ArrayList<String>();
-                alist.add("A");
-                if(key.equals("PERSONAL DETAILS")){
+
+                String key = entry.getKey();
+
+                if(key.equals(pref.getString("oldpersonaldetails",null))){
                     expandableListDetailtemp.put(newkey, Collections.singletonList("explist"));
+                    editor.putString("oldpersonaldetails", newkey);
+                    editor.commit();
                 }else{
                     expandableListDetailtemp.put(key, Collections.singletonList("explist"));
                 }

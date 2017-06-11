@@ -72,8 +72,8 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
         if(listPosition==0){
             //final String expandedListText = (String) getChild(listPosition, expandedListPosition);
             convertView = layoutInflater.inflate(R.layout.tab3_section1_listrow, null);
-            TextView personaldetails_name = (TextView) convertView.findViewById(R.id.section1_name);
-            TextView personaldetails_age = (TextView) convertView.findViewById(R.id.section1_age_tv);
+            EditText personaldetails_name = (EditText) convertView.findViewById(R.id.section1_name);
+            EditText personaldetails_age = (EditText) convertView.findViewById(R.id.section1_age_tv);
             //expandedList2TextView.setText(expandedListText);
 
             String user_name = pref.getString("user_name",null).toString();
@@ -687,6 +687,10 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int listPosition, boolean isExpanded,View convertView, ViewGroup parent) {
 
+        pref = this.context.getSharedPreferences("MediTrackPref", 0);
+        editor = pref.edit();
+        String x = pref.getString("oldpersonaldetails",null);
+
         String listTitle = (String) getGroup(listPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -698,9 +702,15 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
         }
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.sectionTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
+        if(listPosition==0){
+            listTitleTextView.setText(x);
+        }else{
+            listTitleTextView.setText(listTitle);
+        }
+
+
 
         //listTitleTextView.setText(pref.getString("user_name",null).toString()+"\n"+pref.getString("user_age",null).toString());
-        listTitleTextView.setText(listTitle);
 
 
 
