@@ -274,7 +274,6 @@ public class Tab3_Expandablelist_Adapter extends BaseExpandableListAdapter {
                     });
 
                     // select dose times
-                    System.out.println();
                     //set dose 1 time
                     dose1timebtnbtn.setOnClickListener(new View.OnClickListener() {
                         @Override
